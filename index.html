@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belle Boutique | Premium Hair Accessories & Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1d4ed8;
+            --light-blue: #dbeafe;
+            --white: #ffffff;
+            --black: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary-blue);
+        }
+
+        .logo span {
+            color: var(--black);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 20px;
+        }
+
+        .header-icons i {
+            cursor: pointer;
+            color: var(--black);
+            transition: color 0.3s;
+        }
+
+        .header-icons i:hover {
+            color: var(--primary-blue);
+        }
+
+        .cart-count {
+            position: relative;
+        }
+
+        .cart-count span {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary-blue);
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--light-blue);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: var(--black);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--dark-blue);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--black);
+            font-size: 32px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-blue);
+            border-radius: 2px;
+        }
+
+        /* Offers Section */
+        .offers {
+            background-color: var(--light-gray);
+        }
+
+        .offer-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .offer-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .offer-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .offer-content {
+            padding: 20px;
+        }
+
+        .offer-content h3 {
+            margin-bottom: 10px;
+            color: var(--black);
+        }
+
+        .offer-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .discount {
+            display: inline-block;
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Products Section */
+        .product-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .product-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .add-to-cart {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--light-gray);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        .contact-details {
+            margin-top: 25px;
+        }
+
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-details i {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        /* Account Section */
+        .account-section {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .account-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .account-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .account-tab.active {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        .account-form {
+            display: none;
+        }
+
+        .account-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #374151;
+            color: white;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-blue);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-header h2 {
+            color: var(--black);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-details h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--black);
+        }
+
+        .product-details p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        .product-price-large {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .buy-options {
+            margin-top: 25px;
+        }
+
+        .buy-button {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .buy-button:hover {
+            background-color: var(--dark-blue);
+        }
+
+        /* Cart Modal */
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-details h4 {
+            margin-bottom: 5px;
+        }
+
+        .cart-item-details p {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-actions button {
+            background-color: var(--light-gray);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-icons {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .offer-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                <span>Belle Boutique</span>
+            </div>
+            
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <div class="cart-count" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCounter">0</span>
+                </div>
+                <i class="fas fa-user" id="accountIcon"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Elevate Your Style with Boutique Elegance</h1>
+            <p>Discover premium hair accessories, shoes, and socks that blend timeless craftsmanship with contemporary design.</p>
+            <button class="cta-button" id="shopNowBtn">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="offers" id="offers">
+        <div class="container">
+            <h2 class="section-title">Special Offers</h2>
+            <div class="offer-cards">
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1596703923338-48f1c07e4f2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Summer Sale">
+                    <div class="offer-content">
+                        <div class="discount">50% OFF</div>
+                        <h3>Summer Collection Sale</h3>
+                        <p>Get up to 50% off on our summer hair accessories and footwear collection. Limited time offer!</p>
+                        <button class="cta-button" style="padding: 8px 20px;">Shop Now</button>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="New Arrivals">
+                    <div class="offer-content">
+                        <div class="discount">NEW</div>
+                        <h3>New Arrivals</h3>
+                        <p>Explore our latest collection of handcrafted hair pins, clips, and boutique socks.</p>
+                        <button class="cta-button" style="padding: 8px 20px;">View Collection</button>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Free Shipping">
+                    <div class="offer-content">
+                        <div class="discount">FREE</div>
+                        <h3>Free Shipping</h3>
+                        <p>Enjoy free shipping on all orders above ₹999. No code needed, applied automatically at checkout.</p>
+                        <button class="cta-button" style="padding: 8px 20px;">Shop More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+        <div class="container">
+            <h2 class="section-title">Our Products</h2>
+            
+            <div class="product-categories">
+                <button class="category-btn active" data-category="all">All Products</button>
+                <button class="category-btn" data-category="hair">Hair Accessories</button>
+                <button class="category-btn" data-category="shoes">Shoes</button>
+                <button class="category-btn" data-category="socks">Socks</button>
+            </div>
+            
+            <div class="product-grid" id="productContainer">
+                <!-- Products will be loaded here via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Belle Boutique</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Founded in 2015, Belle Boutique started as a small artisan workshop creating handcrafted hair accessories. Today, we've expanded to offer a curated collection of boutique products including hair pins, clips, shoes, and socks.</p>
+                    <p>Our mission is to bring elegance and craftsmanship to everyday fashion. Each product is designed with attention to detail, using high-quality materials that ensure both beauty and durability.</p>
+                    
+                    <div class="contact-details">
+                        <h3>Contact Information</h3>
+                        <div>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>123 Fashion Street, Mumbai, Maharashtra 400001</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-phone"></i>
+                            <p>+91 98765 43210</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-envelope"></i>
+                            <p>info@belleboutique.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <img src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Boutique Store" style="width:100%; border-radius:var(--border-radius);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Account Modal -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Account</h2>
+                <button class="close-modal" id="closeAccountModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="account-section">
+                    <div class="account-tabs">
+                        <button class="account-tab active" data-tab="login">Login</button>
+                        <button class="account-tab" data-tab="signup">Sign Up</button>
+                    </div>
+                    
+                    <form class="account-form active" id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="cta-button" style="width: 100%;">Login</button>
+                    </form>
+                    
+                    <form class="account-form" id="signupForm">
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email Address</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupConfirmPassword">Confirm Password</label>
+                            <input type="password" id="signupConfirmPassword" required>
+                        </div>
+                        <button type="submit" class="cta-button" style="width: 100%;">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalProductTitle">Product Details</h2>
+                <button class="close-modal" id="closeProductModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <img id="modalProductImage" src="" alt="Product Image" style="width:100%; border-radius:var(--border-radius); max-height:400px; object-fit:cover;">
+                </div>
+                <div class="product-details">
+                    <h3 id="modalProductName">Product Name</h3>
+                    <div class="product-price-large" id="modalProductPrice">₹0</div>
+                    <p id="modalProductDescription">Product description will appear here.</p>
+                    <p><strong>Material:</strong> <span id="modalProductMaterial">High-quality materials</span></p>
+                    <p><strong>Color:</strong> <span id="modalProductColor">Various colors available</span></p>
+                    
+                    <div class="buy-options">
+                        <button class="buy-button" id="buyNowBtn">Buy Now</button>
+                        <button class="buy-button" style="background-color: var(--light-blue); color: var(--primary-blue);" id="addToCartBtn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Your Cart</h2>
+                <button class="close-modal" id="closeCartModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be loaded here via JavaScript -->
+                    <p style="text-align: center; padding: 30px; color: var(--gray);" id="emptyCartMessage">Your cart is empty</p>
+                </div>
+                
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">₹0</span>
+                </div>
+                
+                <button class="buy-button" id="checkoutBtn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Belle Boutique</h3>
+                    <p>Bringing elegance to everyday fashion with handcrafted boutique products.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#offers">Offers</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return & Exchange</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Fashion Street, Mumbai</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@belleboutique.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sat: 10AM - 7PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Belle Boutique. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Pearl Hair Pin Set",
+                category: "hair",
+                price: 899,
+                description: "Elegant set of 3 pearl hair pins, perfect for weddings and special occasions.",
+                material: "Metal with faux pearls",
+                color: "White, Gold",
+                image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 2,
+                name: "Floral Hair Clips",
+                category: "hair",
+                price: 649,
+                description: "Beautiful floral design hair clips that add a touch of spring to any hairstyle.",
+                material: "Resin and metal",
+                color: "Pink, Blue, Yellow",
+                image: "https://images.unsplash.com/photo-1596703923338-48f1c07e4f2e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 3,
+                name: "Designer Ballerina Flats",
+                category: "shoes",
+                price: 2499,
+                description: "Comfortable yet stylish ballerina flats with delicate bow detail.",
+                material: "Genuine leather",
+                color: "Black, Nude, Red",
+                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 4,
+                name: "Embroidered Socks Set",
+                category: "socks",
+                price: 799,
+                description: "Set of 5 cotton socks with delicate embroidery patterns.",
+                material: "Cotton blend",
+                color: "Assorted colors",
+                image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 5,
+                name: "Vintage Hair Comb",
+                category: "hair",
+                price: 549,
+                description: "Vintage-style hair comb with intricate design, perfect for updos.",
+                material: "Metal alloy",
+                color: "Silver, Gold",
+                image: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 6,
+                name: "Casual Loafers",
+                category: "shoes",
+                price: 1999,
+                description: "Comfortable casual loafers with memory foam insole for all-day wear.",
+                material: "Synthetic leather",
+                color: "Brown, Navy, Grey",
+                image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 7,
+                name: "Patterned Ankle Socks",
+                category: "socks",
+                price: 599,
+                description: "Fun patterned ankle socks that add personality to any outfit.",
+                material: "Cotton",
+                color: "Stripes, polka dots, geometric",
+                image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 8,
+                name: "Bobby Pin Set",
+                category: "hair",
+                price: 349,
+                description: "Set of 50 bobby pins in assorted colors for all hair types.",
+                material: "Metal with rubber tips",
+                color: "Black, Brown, Blonde",
+                image: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // Cart data
+        let cart = [];
+
+        // DOM Elements
+        const productContainer = document.getElementById('productContainer');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const accountIcon = document.getElementById('accountIcon');
+        const accountModal = document.getElementById('accountModal');
+        const closeAccountModal = document.getElementById('closeAccountModal');
+        const accountTabs = document.querySelectorAll('.account-tab');
+        const accountForms = document.querySelectorAll('.account-form');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const productModal = document.getElementById('productModal');
+        const closeProductModal = document.getElementById('closeProductModal');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeCartModal = document.getElementById('closeCartModal');
+        const cartCounter = document.getElementById('cartCounter');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const emptyCartMessage = document.getElementById('emptyCartMessage');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const shopNowBtn = document.getElementById('shopNowBtn');
+
+        // Current product for modal
+        let currentProduct = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load products
+            renderProducts('all');
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+
+        // Render products based on category
+        function renderProducts(category) {
+            productContainer.innerHTML = '';
+            
+            const filteredProducts = category === 'all' 
+                ? products 
+                : products.filter(product => product.category === category);
+            
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.dataset.id = product.id;
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-img">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p>${product.description.substring(0, 60)}...</p>
+                        <div class="product-price">
+                            <div class="price">₹${product.price}</div>
+                            <button class="add-to-cart" data-id="${product.id}">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                productContainer.appendChild(productCard);
+                
+                // Add click event to product card
+                productCard.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('add-to-cart')) {
+                        showProductDetails(product.id);
+                    }
+                });
+            });
+            
+            // Add event listeners to add-to-cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const productId = parseInt(button.dataset.id);
+                    addToCart(productId);
+                });
+            });
+        }
+
+        // Show product details in modal
+        function showProductDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentProduct = product;
+            
+            // Update modal content
+            document.getElementById('modalProductTitle').textContent = product.name;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductPrice').textContent = `₹${product.price}`;
+            document.getElementById('modalProductDescription').textContent = product.description;
+            document.getElementById('modalProductMaterial').textContent = product.material;
+            document.getElementById('modalProductColor').textContent = product.color;
+            document.getElementById('modalProductImage').src = product.image;
+            document.getElementById('modalProductImage').alt = product.name;
+            
+            // Show modal
+            productModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Add product to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            // Update cart UI
+            updateCartUI();
+            
+            // Show confirmation
+            alert(`${product.name} added to cart!`);
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            // Update cart counter
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCounter.textContent = totalItems;
+            
+            // Update cart items if modal is open
+            if (cartModal.classList.contains('active')) {
+                renderCartItems();
+            }
+        }
+
+        // Render cart items in modal
+        function renderCartItems() {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartTotal.textContent = '₹0';
+                return;
+            }
+            
+            emptyCartMessage.style.display = 'none';
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>₹${item.price} × ${item.quantity} = ₹${itemTotal}</p>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="decrease-quantity" data-id="${item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="increase-quantity" data-id="${item.id}">+</button>
+                        <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItem);
+            });
+            
+            // Add event listeners to cart item buttons
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(button.dataset.id);
+                    updateCartItemQuantity(productId, -1);
+                });
+            });
+            
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(button.dataset.id);
+                    updateCartItemQuantity(productId, 1);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(button.dataset.id);
+                    removeFromCart(productId);
+                });
+            });
+            
+            // Update total
+            cartTotal.textContent = `₹${total}`;
+        }
+
+        // Update cart item quantity
+        function updateCartItemQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (!item) return;
+            
+            item.quantity += change;
+            
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+            } else {
+                updateCartUI();
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Category filter buttons
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    // Render products for selected category
+                    renderProducts(button.dataset.category);
+                });
+            });
+
+            // Account icon click
+            accountIcon.addEventListener('click', () => {
+                accountModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Close account modal
+            closeAccountModal.addEventListener('click', () => {
+                accountModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Account tab switching
+            accountTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    
+                    // Update active tab
+                    accountTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show corresponding form
+                    accountForms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === `${tabName}Form`) {
+                            form.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Login form submission
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // In a real app, you would validate and send to server
+                alert(`Login attempted with email: ${email}`);
+                accountModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Signup form submission
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    alert("Passwords don't match!");
+                    return;
+                }
+                
+                // In a real app, you would send to server
+                alert(`Account created for: ${name} (${email})`);
+                accountModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close product modal
+            closeProductModal.addEventListener('click', () => {
+                productModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Cart icon click
+            cartIcon.addEventListener('click', () => {
+                cartModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                renderCartItems();
+            });
+
+            // Close cart modal
+            closeCartModal.addEventListener('click', () => {
+                cartModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Add to cart button in product modal
+            document.getElementById('addToCartBtn').addEventListener('click', () => {
+                if (currentProduct) {
+                    addToCart(currentProduct.id);
+                }
+            });
+
+            // Buy now button in product modal
+            document.getElementById('buyNowBtn').addEventListener('click', () => {
+                if (currentProduct) {
+                    // Add to cart first
+                    addToCart(currentProduct.id);
+                    
+                    // Close product modal
+                    productModal.classList.remove('active');
+                    
+                    // Open cart modal
+                    cartModal.classList.add('active');
+                    renderCartItems();
+                }
+            });
+
+            // Checkout button
+            checkoutBtn.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert("Your cart is empty!");
+                    return;
+                }
+                
+                // Calculate total
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Initialize Razorpay payment
+                initiateRazorpayPayment(total);
+            });
+
+            // Shop now button
+            shopNowBtn.addEventListener('click', () => {
+                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === accountModal) {
+                    accountModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                if (e.target === productModal) {
+                    productModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                if (e.target === cartModal) {
+                    cartModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // Initialize Razorpay payment
+        function initiateRazorpayPayment(amount) {
+            // In a real application, you would fetch these details from your server
+            // For demo purposes, we're using hardcoded values
+            const options = {
+                key: "rzp_test_1DP5mmOlF5G5ag", // Test API Key (Replace with your actual key in production)
+                amount: amount * 100, // Amount in paise (₹1 = 100 paise)
+                currency: "INR",
+                name: "Belle Boutique",
+                description: "Purchase from Belle Boutique",
+                image: "https://cdn-icons-png.flaticon.com/512/732/732084.png",
+                handler: function(response) {
+                    // This function runs after successful payment
+                    alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+                    
+                    // Clear cart after successful payment
+                    cart = [];
+                    updateCartUI();
+                    cartModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                },
+                prefill: {
+                    name: "Customer Name",
+                    email: "customer@example.com",
+                    contact: "9999999999"
+                },
+                notes: {
+                    address: "Belle Boutique Office"
+                },
+                theme: {
+                    color: "#2563eb"
+                }
+            };
+            
+            const rzp = new Razorpay(options);
+            rzp.open();
+            
+            // Handle payment failure
+            rzp.on('payment.failed', function(response) {
+                alert(`Payment failed! Error: ${response.error.description}`);
+            });
+        }
+    </script>
+</body>
+</html>
